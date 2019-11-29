@@ -1,4 +1,9 @@
 server:
-  port: 8088
+   port: 8888
 logging:
-  config: classpath:logback.xml
+   config: classpath:logback.xml
+
+application:
+        name: router
+registry:
+        address: zookeeper://127.0.0.1:2181

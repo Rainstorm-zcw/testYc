@@ -41,6 +41,7 @@ public class SwaggerConfig {
                 .contact(new Contact("zcw","null", "zhaochengwei968@163.com"))
                 .licenseUrl("http://localhost:8088/doc.html")
                 .version("1.0")
+                .description("测试云仓服务接口")
                 .termsOfServiceUrl("http://localhost:8088/doc.html")
                 .build();
     }

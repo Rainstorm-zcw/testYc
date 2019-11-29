@@ -1,0 +1,241 @@
+
+## 云仓测试 1、查询全部公司
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "queryAllCompany",
+    "methodParams": [
+        {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.QueryYcCompanyCommand"
+     ,"Object":{"pageSize":"10","pageNum":"1"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "queryDrivers",
+    "methodParams": [
+        {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputin.command.QueryDriversCommand"
+     ,"Object":{"pageSize":"10","pageNum":"1"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "queryYcOutputList",
+    "methodParams": [
+       {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.QueryYcOutputCommand"
+     ,"Object":{"pageSize":"10","pageNum":"1","ownerIdMapDeptId":[{"deptId":"0301","ownerId":"KH93092"}],"commissionType":"20","companyId":"CS30055"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "queryYcOutputList",
+    "methodParams": [
+       {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.QueryYcOutputCommand"
+     ,"Object":{"pageSize":"10","pageNum":"1","companyId":"CS30055","companyName":"河南钢铁加工有限公司","commissionType":"20"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+-----
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputin.YcInputQueryApi",
+    "methodName": "queryDrivers",
+    "methodParams": [
+        {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputin.command.QueryDriversCommand"
+     ,"Object":{"pageSize":"10","pageNum":"1"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycInputQueryApi",
+    "version": "0.0.1"
+}
+-----
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "queryOtherCompany",
+    "methodParams": [      {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputin.command.QueryOtherCompanyCommand"
+     ,"Object":{"compId":"CS30055"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "queryYcOutputDept",
+    "methodParams": [
+       {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.QueryYcOutputDeptCommand"
+     ,"Object":{"pageSize":"10","pageNum":"1","companyName":"河南钢铁加工有限公司"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "queryDeptProductType",
+    "methodParams": [
+       {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.QueryYcOutputDeptCommand"
+     ,"Object":{"companyName":"河南钢铁加工有限公司"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "ownersQuery",
+    "methodParams": [    {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputin.command.QueryOwnersReserveStoreCommand"
+     ,"Object":{"pageSize":"10","pageNum":"1","compId":"CS30055"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "queryYcOutReservation",
+    "methodParams": [    {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.QueryYcOutReservationCommand"
+     ,"Object":{"pageSize":"10","pageNum":"1","compId":"CS30055","ownerGuid":"107136ea1d2b4305842ba5fc895011f5","entrustStartTime":"2019-10-21","entrustEndTime":"2019-11-21","putoutTypeDesc":"预约出库","commissionName":"待出库"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "queryPageConstValue",
+    "methodParams": [      {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.QueryPageConstValueCommand"
+     ,"Object":{"pageSize":"10","pageNum":"1","constType":"SPEC_DROP","compId":"CS30055"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "queryYcOutReservationStoreName",
+    "methodParams": [    {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.ReservationStoreNameCommand"
+     ,"Object":{"pageSize":"10","pageNum":"1","compId":"CS30055"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "queryWlPutOutFeedback",
+    "methodParams": [    {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputin.command.QueryWLFeedbackCommand"
+     ,"Object":{"commissionId":"CCSS12344","CommissionGuid":"c2f90d9ffb4346279880885d403bb6c2"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "queryWlPutOutFeedback",
+    "methodParams": [    {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputin.command.QueryWLFeedbackCommand"
+     ,"Object":{"commissionId":"YCT19071000004","CommissionGuid":"2c67c8fef91940b18e7d592ee0774fd7"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "queryOutReservationGoodsList",
+    "methodParams": [    {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.QueryOutGoodsCommand"
+     ,"Object":{"batchId":"171fbd22559646ac92c53754e8489d6d"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "queryShopCart",
+    "methodParams": [    {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputin.command.QueryWLShopCartCommand"
+     ,"Object":{"pageSize":"10","pageNum":"1","compId":"CS30055"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "oudDownloadDetail",
+    "methodParams": [    {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.QueryYcOutReservationCommand"
+     ,"Object":{"entrustStartTime":"2019-10-19","entrustEndTime":"2019-11-19","compId":"CS30055"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "query",
+    "methodParams": [    {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.PutoutPermissionCommand"
+     ,"Object":{"guid":"ece7a231eb824955820cb8ef32c00996"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "cqueryDrivers",
+    "methodParams": [    {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.QueryPutoutDriversCommand"
+     ,"Object":{"guid":"ece7a231eb824955820cb8ef32c00996","commissionGuid":"ece7a231eb824955820cb8ef32c00996"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "query4Update",
+    "methodParams": [    {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.WlPutoutGoodsCommand"
+     ,"Object":{"storeGuid":"f3c80f437142405b97f2a72cbd17956f","commissionGuid":"ece7a231eb824955820cb8ef32c00996"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "querySumWeightAndSumQty",
+    "methodParams": [    {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.WlPutoutGoodsCommand"
+     ,"Object":{"storeGuid":"f3c80f437142405b97f2a72cbd17956f","commissionGuid":"50041291589b4568a1b13a265c8ebf14"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
