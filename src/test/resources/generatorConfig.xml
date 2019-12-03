@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 数据库驱动-->
+    <classPathEntry
+            location="E:\oracle\ojdbc14-10.2.0.4.0.jar"/>
+    <context id="oracle" targetRuntime="MyBatis3">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <plugin type="com.example.testyc.mbg.SerializablePlugin" />
+        <plugin type="com.example.testyc.mbg.OraclePagePlugin" />
+        <plugin type="com.example.testyc.mbg.OracleFixedPlugin" />
+        <commentGenerator type="com.example.testyc.mbg.MainGenerator"/>
+        <!--数据库链接URL，用户名、密码 -->
+        <jdbcConnection driverClass="oracle.jdbc.OracleDriver" connectionURL="jdbc:oracle:thin:@10.60.146.47:1521:yctest"  userId="vasdba" password="vasdba">
+            <property name="remarksReporting" value="true" />
+        </jdbcConnection>
+        <javaTypeResolver type="com.example.testyc.mbg.JavaTypeResolverForOracle">
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- 生成模型的包名和位置-->
+        <javaModelGenerator targetPackage="com.example.testyc.persistence.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 生成映射文件的包名和位置-->
+        <sqlMapGenerator targetPackage="com.example.testyc.persistence.sql" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- 生成Mapper的包名和位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.example.testyc.persistence.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <table
+                enableCountByExample="true"
+                enableUpdateByExample="false"
+                enableDeleteByExample="false"
+                enableSelectByExample="true"
+                selectByExampleQueryId="true"
+                tableName="T_WL_STORE_INFO"
+                domainObjectName="tWlStoreInfo">
+            <property name="ignoreQualifiersAtRuntime" value="true" />
+        </table>
+    </context>
+</generatorConfiguration>
