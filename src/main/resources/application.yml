@@ -7,3 +7,14 @@ application:
         name: router
 registry:
         address: zookeeper://127.0.0.1:2181
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@10.60.146.47:1521:yctest
+    username: vasdba
+    password: vasdba
+    hikari:
+    maximum-pool-size: 80
+mybatis:
+  mapper-locations: classpath*:com/example/testyc/persistence/**/*.xml
+

@@ -5,7 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
-public class tWlStoreInfo implements Serializable {
+public class TWlStoreInfo implements Serializable {
     /**
      * 管理号
      */

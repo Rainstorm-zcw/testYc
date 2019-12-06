@@ -1,6 +1,9 @@
 package com.example.testyc.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.example.testyc.persistence.entity.TWlStoreInfo;
+import com.example.testyc.persistence.entity.TWlStoreInfoExample;
+import com.example.testyc.persistence.mapper.TWlStoreInfoMapper;
 import com.example.testyc.support.annotation.OuyeelApi;
 import com.example.testyc.support.command.RequestCommand;
 import com.example.testyc.support.util.DubboServiceFactory;
@@ -9,6 +12,7 @@ import com.google.common.collect.Maps;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +34,8 @@ public class YcTestController {
     private String applicationName;
     @Value("${registry.address}")
     private String registryAddress;
+    @Autowired(required = false)
+    private TWlStoreInfoMapper mapper;
 
     /**
      * 测试结果
@@ -56,6 +62,19 @@ public class YcTestController {
         DubboServiceFactory dubbo = DubboServiceFactory.getInstance();
 
         return dubbo.genericInvoke(dto.getServiceId(), dto.getServiceGroup(), dto.getVersion(), dto.getInterfaceName(), dto.getMethodName(), paramInfos);
+    }
+
+    @RequestMapping(value = "queryStoreInfo", method = RequestMethod.POST)
+    @ApiOperation("查询仓库信息")
+    @ResponseBody
+    public List<TWlStoreInfo> queryStoreInfo(String guid, String storeName) {
+        TWlStoreInfoExample infoExample = new TWlStoreInfoExample();
+        TWlStoreInfoExample.Criteria criteria = infoExample.createCriteria();
+        criteria.andGuidEqualTo(guid);
+        criteria.andStoreNameEqualTo(storeName);
+        List<TWlStoreInfo> storeInfo = mapper.selectByExample(infoExample);
+        log.info("仓库信息为:{}", JSON.toJSONString(storeInfo));
+        return storeInfo;
     }
 
 }

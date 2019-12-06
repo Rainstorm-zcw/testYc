@@ -239,3 +239,14 @@
     "serviceId": "ycOutputQueryApi",
     "version": "0.0.1"
 }
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "platesDownload",
+    "methodParams": [    {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.TemplateDownLoadCommand"
+     ,"Object":{"ownerIdMapDeptId":[{"deptId":"0301","ownerId":"KH93092"}],"goodsId":"4f63ada6ccfb4237985493c36feea274"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}

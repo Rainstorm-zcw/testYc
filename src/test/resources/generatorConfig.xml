@@ -40,7 +40,7 @@
                 enableSelectByExample="true"
                 selectByExampleQueryId="true"
                 tableName="T_WL_STORE_INFO"
-                domainObjectName="tWlStoreInfo">
+                domainObjectName="TWlStoreInfo">
             <property name="ignoreQualifiersAtRuntime" value="true" />
         </table>
     </context>

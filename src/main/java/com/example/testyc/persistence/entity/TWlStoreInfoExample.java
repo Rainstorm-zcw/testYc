@@ -3,10 +3,9 @@ package com.example.testyc.persistence.entity;
 import com.example.testyc.util.Page;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
-public class tWlStoreInfoExample {
+public class TWlStoreInfoExample {
     /**
      * T_WL_STORE_INFO
      */
@@ -29,15 +28,15 @@ public class tWlStoreInfoExample {
 
     /**
      *
-     * @mbggenerated 2019-12-03
+     * @mbggenerated 2019-12-05
      */
-    public tWlStoreInfoExample() {
+    public TWlStoreInfoExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
     /**
      *
-     * @mbggenerated 2019-12-03
+     * @mbggenerated 2019-12-05
      */
     public void setOrderByClause(String orderByClause) {
         this.orderByClause = orderByClause;
@@ -45,7 +44,7 @@ public class tWlStoreInfoExample {
 
     /**
      *
-     * @mbggenerated 2019-12-03
+     * @mbggenerated 2019-12-05
      */
     public String getOrderByClause() {
         return orderByClause;
@@ -53,7 +52,7 @@ public class tWlStoreInfoExample {
 
     /**
      *
-     * @mbggenerated 2019-12-03
+     * @mbggenerated 2019-12-05
      */
     public void setDistinct(boolean distinct) {
         this.distinct = distinct;
@@ -61,7 +60,7 @@ public class tWlStoreInfoExample {
 
     /**
      *
-     * @mbggenerated 2019-12-03
+     * @mbggenerated 2019-12-05
      */
     public boolean isDistinct() {
         return distinct;
@@ -69,7 +68,7 @@ public class tWlStoreInfoExample {
 
     /**
      *
-     * @mbggenerated 2019-12-03
+     * @mbggenerated 2019-12-05
      */
     public List<Criteria> getOredCriteria() {
         return oredCriteria;
@@ -77,7 +76,7 @@ public class tWlStoreInfoExample {
 
     /**
      *
-     * @mbggenerated 2019-12-03
+     * @mbggenerated 2019-12-05
      */
     public void or(Criteria criteria) {
         oredCriteria.add(criteria);
@@ -85,7 +84,7 @@ public class tWlStoreInfoExample {
 
     /**
      *
-     * @mbggenerated 2019-12-03
+     * @mbggenerated 2019-12-05
      */
     public Criteria or() {
         Criteria criteria = createCriteriaInternal();
@@ -95,7 +94,7 @@ public class tWlStoreInfoExample {
 
     /**
      *
-     * @mbggenerated 2019-12-03
+     * @mbggenerated 2019-12-05
      */
     public Criteria createCriteria() {
         Criteria criteria = createCriteriaInternal();
@@ -107,7 +106,7 @@ public class tWlStoreInfoExample {
 
     /**
      *
-     * @mbggenerated 2019-12-03
+     * @mbggenerated 2019-12-05
      */
     protected Criteria createCriteriaInternal() {
         Criteria criteria = new Criteria();
@@ -116,7 +115,7 @@ public class tWlStoreInfoExample {
 
     /**
      *
-     * @mbggenerated 2019-12-03
+     * @mbggenerated 2019-12-05
      */
     public void clear() {
         oredCriteria.clear();
@@ -126,7 +125,7 @@ public class tWlStoreInfoExample {
 
     /**
      *
-     * @mbggenerated 2019-12-03
+     * @mbggenerated 2019-12-05
      */
     public void setPage(Page page) {
         this.page=page;
@@ -134,14 +133,14 @@ public class tWlStoreInfoExample {
 
     /**
      *
-     * @mbggenerated 2019-12-03
+     * @mbggenerated 2019-12-05
      */
     public Page getPage() {
         return page;
     }
 
     /**
-     * T_WL_STORE_INFO 2019-12-03
+     * T_WL_STORE_INFO 2019-12-05
      */
     protected abstract static class GeneratedCriteria {
         protected List<Criterion> criteria;
@@ -182,32 +181,6 @@ public class tWlStoreInfoExample {
                 throw new RuntimeException("Between values for " + property + " cannot be null");
             }
             criteria.add(new Criterion(condition, value1, value2));
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value, String property) {
-            if (value == null) {
-                throw new RuntimeException("Value for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value.getTime()), property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, List<Date> values, String property) {
-            if (values == null || values.size() == 0) {
-                throw new RuntimeException("Value list for " + property + " cannot be null or empty");
-            }
-            List<java.sql.Date> dateList = new ArrayList<java.sql.Date>();
-            Iterator<Date> iter = values.iterator();
-            while (iter.hasNext()) {
-                dateList.add(new java.sql.Date(iter.next().getTime()));
-            }
-            addCriterion(condition, dateList, property);
-        }
-
-        protected void addCriterionForJDBCDate(String condition, Date value1, Date value2, String property) {
-            if (value1 == null || value2 == null) {
-                throw new RuntimeException("Between values for " + property + " cannot be null");
-            }
-            addCriterion(condition, new java.sql.Date(value1.getTime()), new java.sql.Date(value2.getTime()), property);
         }
 
         public Criteria andGuidIsNull() {
@@ -3081,52 +3054,52 @@ public class tWlStoreInfoExample {
         }
 
         public Criteria andCreateDateEqualTo(Date value) {
-            addCriterionForJDBCDate("CREATE_DATE =", value, "createDate");
+            addCriterion("CREATE_DATE =", value, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateNotEqualTo(Date value) {
-            addCriterionForJDBCDate("CREATE_DATE <>", value, "createDate");
+            addCriterion("CREATE_DATE <>", value, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateGreaterThan(Date value) {
-            addCriterionForJDBCDate("CREATE_DATE >", value, "createDate");
+            addCriterion("CREATE_DATE >", value, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("CREATE_DATE >=", value, "createDate");
+            addCriterion("CREATE_DATE >=", value, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateLessThan(Date value) {
-            addCriterionForJDBCDate("CREATE_DATE <", value, "createDate");
+            addCriterion("CREATE_DATE <", value, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("CREATE_DATE <=", value, "createDate");
+            addCriterion("CREATE_DATE <=", value, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateIn(List<Date> values) {
-            addCriterionForJDBCDate("CREATE_DATE in", values, "createDate");
+            addCriterion("CREATE_DATE in", values, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateNotIn(List<Date> values) {
-            addCriterionForJDBCDate("CREATE_DATE not in", values, "createDate");
+            addCriterion("CREATE_DATE not in", values, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("CREATE_DATE between", value1, value2, "createDate");
+            addCriterion("CREATE_DATE between", value1, value2, "createDate");
             return (Criteria) this;
         }
 
         public Criteria andCreateDateNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("CREATE_DATE not between", value1, value2, "createDate");
+            addCriterion("CREATE_DATE not between", value1, value2, "createDate");
             return (Criteria) this;
         }
 
@@ -3211,52 +3184,52 @@ public class tWlStoreInfoExample {
         }
 
         public Criteria andModiDateEqualTo(Date value) {
-            addCriterionForJDBCDate("MODI_DATE =", value, "modiDate");
+            addCriterion("MODI_DATE =", value, "modiDate");
             return (Criteria) this;
         }
 
         public Criteria andModiDateNotEqualTo(Date value) {
-            addCriterionForJDBCDate("MODI_DATE <>", value, "modiDate");
+            addCriterion("MODI_DATE <>", value, "modiDate");
             return (Criteria) this;
         }
 
         public Criteria andModiDateGreaterThan(Date value) {
-            addCriterionForJDBCDate("MODI_DATE >", value, "modiDate");
+            addCriterion("MODI_DATE >", value, "modiDate");
             return (Criteria) this;
         }
 
         public Criteria andModiDateGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("MODI_DATE >=", value, "modiDate");
+            addCriterion("MODI_DATE >=", value, "modiDate");
             return (Criteria) this;
         }
 
         public Criteria andModiDateLessThan(Date value) {
-            addCriterionForJDBCDate("MODI_DATE <", value, "modiDate");
+            addCriterion("MODI_DATE <", value, "modiDate");
             return (Criteria) this;
         }
 
         public Criteria andModiDateLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("MODI_DATE <=", value, "modiDate");
+            addCriterion("MODI_DATE <=", value, "modiDate");
             return (Criteria) this;
         }
 
         public Criteria andModiDateIn(List<Date> values) {
-            addCriterionForJDBCDate("MODI_DATE in", values, "modiDate");
+            addCriterion("MODI_DATE in", values, "modiDate");
             return (Criteria) this;
         }
 
         public Criteria andModiDateNotIn(List<Date> values) {
-            addCriterionForJDBCDate("MODI_DATE not in", values, "modiDate");
+            addCriterion("MODI_DATE not in", values, "modiDate");
             return (Criteria) this;
         }
 
         public Criteria andModiDateBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("MODI_DATE between", value1, value2, "modiDate");
+            addCriterion("MODI_DATE between", value1, value2, "modiDate");
             return (Criteria) this;
         }
 
         public Criteria andModiDateNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("MODI_DATE not between", value1, value2, "modiDate");
+            addCriterion("MODI_DATE not between", value1, value2, "modiDate");
             return (Criteria) this;
         }
 
@@ -5131,52 +5104,52 @@ public class tWlStoreInfoExample {
         }
 
         public Criteria andSiteUpdateDateEqualTo(Date value) {
-            addCriterionForJDBCDate("SITE_UPDATE_DATE =", value, "siteUpdateDate");
+            addCriterion("SITE_UPDATE_DATE =", value, "siteUpdateDate");
             return (Criteria) this;
         }
 
         public Criteria andSiteUpdateDateNotEqualTo(Date value) {
-            addCriterionForJDBCDate("SITE_UPDATE_DATE <>", value, "siteUpdateDate");
+            addCriterion("SITE_UPDATE_DATE <>", value, "siteUpdateDate");
             return (Criteria) this;
         }
 
         public Criteria andSiteUpdateDateGreaterThan(Date value) {
-            addCriterionForJDBCDate("SITE_UPDATE_DATE >", value, "siteUpdateDate");
+            addCriterion("SITE_UPDATE_DATE >", value, "siteUpdateDate");
             return (Criteria) this;
         }
 
         public Criteria andSiteUpdateDateGreaterThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("SITE_UPDATE_DATE >=", value, "siteUpdateDate");
+            addCriterion("SITE_UPDATE_DATE >=", value, "siteUpdateDate");
             return (Criteria) this;
         }
 
         public Criteria andSiteUpdateDateLessThan(Date value) {
-            addCriterionForJDBCDate("SITE_UPDATE_DATE <", value, "siteUpdateDate");
+            addCriterion("SITE_UPDATE_DATE <", value, "siteUpdateDate");
             return (Criteria) this;
         }
 
         public Criteria andSiteUpdateDateLessThanOrEqualTo(Date value) {
-            addCriterionForJDBCDate("SITE_UPDATE_DATE <=", value, "siteUpdateDate");
+            addCriterion("SITE_UPDATE_DATE <=", value, "siteUpdateDate");
             return (Criteria) this;
         }
 
         public Criteria andSiteUpdateDateIn(List<Date> values) {
-            addCriterionForJDBCDate("SITE_UPDATE_DATE in", values, "siteUpdateDate");
+            addCriterion("SITE_UPDATE_DATE in", values, "siteUpdateDate");
             return (Criteria) this;
         }
 
         public Criteria andSiteUpdateDateNotIn(List<Date> values) {
-            addCriterionForJDBCDate("SITE_UPDATE_DATE not in", values, "siteUpdateDate");
+            addCriterion("SITE_UPDATE_DATE not in", values, "siteUpdateDate");
             return (Criteria) this;
         }
 
         public Criteria andSiteUpdateDateBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("SITE_UPDATE_DATE between", value1, value2, "siteUpdateDate");
+            addCriterion("SITE_UPDATE_DATE between", value1, value2, "siteUpdateDate");
             return (Criteria) this;
         }
 
         public Criteria andSiteUpdateDateNotBetween(Date value1, Date value2) {
-            addCriterionForJDBCDate("SITE_UPDATE_DATE not between", value1, value2, "siteUpdateDate");
+            addCriterion("SITE_UPDATE_DATE not between", value1, value2, "siteUpdateDate");
             return (Criteria) this;
         }
 
@@ -8062,7 +8035,7 @@ public class tWlStoreInfoExample {
     }
 
     /**
-     * T_WL_STORE_INFO 2019-12-03
+     * T_WL_STORE_INFO 2019-12-05
      */
     public static class Criterion {
         private String condition;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.testyc.persistence.mapper.tWlStoreInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.example.testyc.persistence.entity.tWlStoreInfo" >
+<mapper namespace="com.example.testyc.persistence.mapper.TWlStoreInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.example.testyc.persistence.entity.TWlStoreInfo" >
     <id column="GUID" property="guid" jdbcType="VARCHAR" />
     <result column="STORE_NAME" property="storeName" jdbcType="VARCHAR" />
     <result column="STORE_CODE" property="storeCode" jdbcType="VARCHAR" />
@@ -44,9 +44,9 @@
     <result column="REMARK" property="remark" jdbcType="VARCHAR" />
     <result column="INFO_SOURCE" property="infoSource" jdbcType="VARCHAR" />
     <result column="ALIVE_FLAG" property="aliveFlag" jdbcType="VARCHAR" />
-    <result column="CREATE_DATE" property="createDate" jdbcType="DATE" />
+    <result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
     <result column="CREATE_PERSON" property="createPerson" jdbcType="VARCHAR" />
-    <result column="MODI_DATE" property="modiDate" jdbcType="DATE" />
+    <result column="MODI_DATE" property="modiDate" jdbcType="TIMESTAMP" />
     <result column="MODI_PERSON" property="modiPerson" jdbcType="VARCHAR" />
     <result column="ATTENTION_DEGREE" property="attentionDegree" jdbcType="DECIMAL" />
     <result column="COMPANY_LABEL" property="companyLabel" jdbcType="VARCHAR" />
@@ -75,7 +75,7 @@
     <result column="SHUIWU_CERTIFICATE" property="shuiwuCertificate" jdbcType="VARCHAR" />
     <result column="COMPANY_ID" property="companyId" jdbcType="VARCHAR" />
     <result column="FROM_SITE" property="fromSite" jdbcType="VARCHAR" />
-    <result column="SITE_UPDATE_DATE" property="siteUpdateDate" jdbcType="DATE" />
+    <result column="SITE_UPDATE_DATE" property="siteUpdateDate" jdbcType="TIMESTAMP" />
     <result column="IS_SHOW" property="isShow" jdbcType="VARCHAR" />
     <result column="LOGO_PATH" property="logoPath" jdbcType="VARCHAR" />
     <result column="CHANGE_LOG_GUID" property="changeLogGuid" jdbcType="VARCHAR" />
@@ -169,7 +169,7 @@
     CAP_OWNER_ID, LEGAL_FULL_NAME, BUS_LICENCE_NAME, TCODE, AGENT_STORE_FLAG, STREET, 
     HOUSE_NUMBER, MACHING_SIGN, WHARF_SIGN, RAILWAY_SIGN, RECEIVINGPOINT_SIGN, TAIXUN_FLAG
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.testyc.persistence.entity.tWlStoreInfoExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.example.testyc.persistence.entity.TWlStoreInfoExample" >
     <include refid="OracleDialectPrefix" />
     select
     <if test="distinct" >
@@ -196,7 +196,7 @@
     delete from T_WL_STORE_INFO
     where GUID = #{guid,jdbcType=VARCHAR}
   </delete>
-  <insert id="insertSelective" parameterType="com.example.testyc.persistence.entity.tWlStoreInfo" >
+  <insert id="insertSelective" parameterType="com.example.testyc.persistence.entity.TWlStoreInfo" >
     <selectKey resultType="java.lang.Long" keyProperty="id"  order="BEFORE" >
       SELECT SEQ_T_WL_STORE_INFO.NEXTVAL FROM DUAL
     </selectKey>
@@ -676,13 +676,13 @@
         #{aliveFlag,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null" >
-        #{createDate,jdbcType=DATE},
+        #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="createPerson != null" >
         #{createPerson,jdbcType=VARCHAR},
       </if>
       <if test="modiDate != null" >
-        #{modiDate,jdbcType=DATE},
+        #{modiDate,jdbcType=TIMESTAMP},
       </if>
       <if test="modiPerson != null" >
         #{modiPerson,jdbcType=VARCHAR},
@@ -769,7 +769,7 @@
         #{fromSite,jdbcType=VARCHAR},
       </if>
       <if test="siteUpdateDate != null" >
-        #{siteUpdateDate,jdbcType=DATE},
+        #{siteUpdateDate,jdbcType=TIMESTAMP},
       </if>
       <if test="isShow != null" >
         #{isShow,jdbcType=VARCHAR},
@@ -896,13 +896,13 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.example.testyc.persistence.entity.tWlStoreInfoExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.example.testyc.persistence.entity.TWlStoreInfoExample" resultType="java.lang.Integer" >
     select count(*) from T_WL_STORE_INFO
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.testyc.persistence.entity.tWlStoreInfo" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.testyc.persistence.entity.TWlStoreInfo" >
     update T_WL_STORE_INFO
     <set >
       <if test="storeName != null" >
@@ -1029,13 +1029,13 @@
         ALIVE_FLAG = #{aliveFlag,jdbcType=VARCHAR},
       </if>
       <if test="createDate != null" >
-        CREATE_DATE = #{createDate,jdbcType=DATE},
+        CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
       </if>
       <if test="createPerson != null" >
         CREATE_PERSON = #{createPerson,jdbcType=VARCHAR},
       </if>
       <if test="modiDate != null" >
-        MODI_DATE = #{modiDate,jdbcType=DATE},
+        MODI_DATE = #{modiDate,jdbcType=TIMESTAMP},
       </if>
       <if test="modiPerson != null" >
         MODI_PERSON = #{modiPerson,jdbcType=VARCHAR},
@@ -1122,7 +1122,7 @@
         FROM_SITE = #{fromSite,jdbcType=VARCHAR},
       </if>
       <if test="siteUpdateDate != null" >
-        SITE_UPDATE_DATE = #{siteUpdateDate,jdbcType=DATE},
+        SITE_UPDATE_DATE = #{siteUpdateDate,jdbcType=TIMESTAMP},
       </if>
       <if test="isShow != null" >
         IS_SHOW = #{isShow,jdbcType=VARCHAR},
