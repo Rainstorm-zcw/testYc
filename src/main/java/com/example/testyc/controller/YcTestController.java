@@ -7,6 +7,7 @@ import com.example.testyc.persistence.mapper.TWlStoreInfoMapper;
 import com.example.testyc.support.annotation.OuyeelApi;
 import com.example.testyc.support.command.RequestCommand;
 import com.example.testyc.support.util.DubboServiceFactory;
+import com.example.testyc.util.EhcacheConfig;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import io.swagger.annotations.Api;
@@ -32,10 +33,15 @@ public class YcTestController {
 
     @Value("${application.name}")
     private String applicationName;
+
     @Value("${registry.address}")
     private String registryAddress;
+
     @Autowired(required = false)
     private TWlStoreInfoMapper mapper;
+
+    @Autowired
+    private EhcacheConfig ehcacheConfig;
 
     /**
      * 测试结果
@@ -76,5 +82,46 @@ public class YcTestController {
         log.info("仓库信息为:{}", JSON.toJSONString(storeInfo));
         return storeInfo;
     }
+
+    @RequestMapping(value = "testCache", method = RequestMethod.POST)
+    @ApiOperation("测试缓存")
+    public void testCache() {
+        String cacheName = "myCache";
+        String key = "13337106951";
+        String val = "测试手机号";
+        ehcacheConfig.save(cacheName, key, val);
+        Object object = ehcacheConfig.get(cacheName, key);
+        log.info("输出缓存:{}", object.toString());
+        ehcacheConfig.remove(cacheName, key);
+        Object object2 = ehcacheConfig.get(cacheName, key);
+        log.info("输出缓存:{}", object2);
+    }
+
+    //todo 要注意的是当一个支持缓存的方法在对象内部被调用时是不会触发缓存功能的。
+    @RequestMapping(value = "testCache2", method = RequestMethod.POST)
+    @ApiOperation("测试缓存2")
+    public void testCache2() {
+        /*String cacheName = "myCache";
+        String key = "13337106951";
+        String val = "注解缓存测试";
+        ehcacheConfig.annotationSave(key, val);
+        Object object = ehcacheConfig.get(cacheName, key);
+        log.info("输出缓存:{}", object.toString());
+        ehcacheConfig.annotationRemove(key);
+        Object object2 = ehcacheConfig.get(cacheName, key);
+        log.info("输出缓存:{}", object2);*/
+        String cacheName = "myCache";
+        String key = "18989898988";
+        String val = "I'm ironMan";
+        Object object = ehcacheConfig.testSave(key, val);
+        log.info("输出缓存:{}", object.toString());
+        val = "注解缓存测试";
+        //ehcacheConfig.annotationSave(key, val);
+        //ehcacheConfig.annotationRemove(key);
+        Object object2 = ehcacheConfig.cacheIng(key, "注解缓存测试");
+        log.info("输出缓存:{}", object2);
+    }
+
+
 
 }

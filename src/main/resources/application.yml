@@ -15,6 +15,9 @@ spring:
     password: vasdba
     hikari:
     maximum-pool-size: 80
+  cache:
+    ehcache:
+      config: classpath:ehcache.xml
 mybatis:
   mapper-locations: classpath*:com/example/testyc/persistence/**/*.xml
 

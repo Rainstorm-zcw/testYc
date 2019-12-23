@@ -5,17 +5,24 @@ import com.alibaba.dubbo.config.ReferenceConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.utils.ReferenceConfigCache;
 import com.alibaba.dubbo.rpc.service.GenericService;
+import com.example.testyc.util.EhcacheConfig;
 import com.google.common.collect.Maps;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Map;
 
 
+@Slf4j
 @SpringBootTest
 class TestYcApplicationTests {
+
+    @Autowired
+    private EhcacheConfig ehcacheConfig;
 
     private Logger logger = LoggerFactory.getLogger(TestYcApplicationTests.class);
 
@@ -77,6 +84,39 @@ class TestYcApplicationTests {
 
         logger.info("输出结果:{}", result);
 
+    }
+
+    @Test
+    public void testCache() {
+        String cacheName = "myCache";
+        String key = "13333333333";
+        String val = "测试缓存";
+        //保存缓存
+        ehcacheConfig.save(cacheName, key, val);
+        //获取缓存
+        Object object = ehcacheConfig.get(cacheName, key);
+        log.info("输出缓存:{}", object.toString());
+        //删除缓存
+        ehcacheConfig.remove(cacheName, key);
+        //获取缓存
+        Object object2 = ehcacheConfig.get(cacheName, key);
+        log.info("重新输出缓存:{}", object2);
+    }
+
+    @Test
+    public void testAnnotationCache() {
+        String key = "18888888888";
+        String val = "注解方式测试缓存";
+        //保存缓存
+        ehcacheConfig.annotationSave(key, val);
+        //获取缓存
+        Object object = ehcacheConfig.cacheIng(key, val);
+        log.info("注解方式输出缓存:{}", object.toString());
+        //删除缓存
+        ehcacheConfig.annotationRemove(key);
+        //获取缓存
+        Object object2 = ehcacheConfig.get("myCache", key);
+        log.info("注解方式重新输出缓存:{}", object2);
     }
 
 }
