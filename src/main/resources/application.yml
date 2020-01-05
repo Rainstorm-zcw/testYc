@@ -29,6 +29,7 @@ spring:
         max-concurrency: 3
         prefetch: 5
         #prefetch 使得每个Consumer在同一个时间点最多处理5个Message、换句话说,在接收到该Consumer的ack前,它不会将新的Message分发给它
+        acknowledge-mode: none #消息接收确认 NONE：自动确认、AUTO：根据情况确认、MANUAL：手动确认
 mybatis:
   mapper-locations: classpath*:com/example/testyc/persistence/**/*.xml
 
