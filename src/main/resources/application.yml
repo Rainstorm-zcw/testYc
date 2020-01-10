@@ -1,12 +1,12 @@
 server:
-   port: 8888
+  port: 8888
 logging:
-   config: classpath:logback.xml
+  config: classpath:logback.xml
 
 application:
-        name: router
+  name: router
 registry:
-        address: zookeeper://127.0.0.1:2181
+  address: zookeeper://127.0.0.1:2181
 spring:
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
@@ -15,6 +15,21 @@ spring:
     password: vasdba
     hikari:
     maximum-pool-size: 80
+  cache:
+    ehcache:
+      config: classpath:ehcache.xml
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    listener:
+      simple:
+        concurrency: 2
+        max-concurrency: 3
+        prefetch: 5
+        #prefetch 使得每个Consumer在同一个时间点最多处理5个Message、换句话说,在接收到该Consumer的ack前,它不会将新的Message分发给它
+        acknowledge-mode: none #消息接收确认 NONE：自动确认、AUTO：根据情况确认、MANUAL：手动确认
 mybatis:
   mapper-locations: classpath*:com/example/testyc/persistence/**/*.xml
 

@@ -1,6 +1,7 @@
 package com.example.testyc;
 
 import com.example.testyc.support.annotation.OuyeelApi;
+import com.example.testyc.support.annotation.RabbitMQApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -22,7 +23,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig {
 
     @Bean
-    public Docket innerApi(){
+    public Docket innerApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("云仓接口api")
                 .genericModelSubstitutes(DeferredResult.class)
@@ -34,15 +35,43 @@ public class SwaggerConfig {
                 .apiInfo(innerApiInfo());
     }
 
-    public ApiInfo innerApiInfo(){
+    public ApiInfo innerApiInfo() {
         return new ApiInfoBuilder()
                 .title("接口文档")
                 .description("服务端通用接口")
-                .contact(new Contact("zcw","null", "zhaochengwei968@163.com"))
-                .licenseUrl("http://localhost:8088/doc.html")
+                .contact(new Contact("zcw", "null", "zhaochengwei968@163.com"))
+                .licenseUrl("http://localhost:8888/doc.html")
                 .version("1.0")
                 .description("测试云仓服务接口")
-                .termsOfServiceUrl("http://localhost:8088/doc.html")
+                .termsOfServiceUrl("http://localhost:8888/doc.html")
                 .build();
     }
+
+    @Bean
+    public Docket rabbitMQApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("rabbitMQ实例")
+                .genericModelSubstitutes(DeferredResult.class)
+                .useDefaultResponseMessages(false)
+                .forCodeGeneration(false)
+                .select()
+                .apis(RequestHandlerSelectors.withClassAnnotation(RabbitMQApi.class))
+                .build()
+                .apiInfo(innerApiInfo());
+    }
+
+    public ApiInfo rabbitMQInfo() {
+        return new ApiInfoBuilder()
+                .title("rabbitMQ实例")
+                .description("springBoot整合rabbitMQ用法")
+                .contact(new Contact("zcw", "null", "zhaochengwei968@163.com"))
+                .licenseUrl("http://localhost:8888/doc.html")
+                .version("1.0")
+                .description("测试云仓服务接口")
+                .termsOfServiceUrl("http://localhost:8888/doc.html")
+                .build()
+                ;
+    }
+
+
 }

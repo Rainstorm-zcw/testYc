@@ -120,6 +120,17 @@
 
 {
     "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "queryYcOutReservation",
+    "methodParams": [    {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.QueryYcOutReservationCommand"
+     ,"Object":{"pageSize":"10","pageNum":"1","compId":"CS30055","ownerGuid":"107136ea1d2b4305842ba5fc895011f5","entrustStartTime":"2019-11-19","entrustEndTime":"2019-12-19","putoutTypeDesc":"转授权","commissionStatus":"00"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
     "methodName": "queryPageConstValue",
     "methodParams": [      {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.QueryPageConstValueCommand"
      ,"Object":{"pageSize":"10","pageNum":"1","constType":"SPEC_DROP","compId":"CS30055"}}
@@ -168,6 +179,17 @@
     "methodName": "queryOutReservationGoodsList",
     "methodParams": [    {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.QueryOutGoodsCommand"
      ,"Object":{"batchId":"171fbd22559646ac92c53754e8489d6d"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "queryOutReservationAuthGoodsList",
+    "methodParams": [    {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.QueryOutGoodsCommand"
+     ,"Object":{"batchId":"a4975c9ff9e947bd8d7ed89c0f09e78b","pageSize":"10","pageNum":"1"}}
     ],
     "serviceGroup": "yc_wl_service_dev",
     "serviceId": "ycOutputQueryApi",
@@ -234,6 +256,17 @@
     "methodName": "querySumWeightAndSumQty",
     "methodParams": [    {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.WlPutoutGoodsCommand"
      ,"Object":{"storeGuid":"f3c80f437142405b97f2a72cbd17956f","commissionGuid":"50041291589b4568a1b13a265c8ebf14"}}
+    ],
+    "serviceGroup": "yc_wl_service_dev",
+    "serviceId": "ycOutputQueryApi",
+    "version": "0.0.1"
+}
+
+{
+    "interfaceName": "com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi",
+    "methodName": "queryAuthSumWeightAndSumQty",
+    "methodParams": [    {"paramTypes":"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.WlPutoutGoodsCommand"
+     ,"Object":{"storeGuid":"f3c80f437142405b97f2a72cbd17956f","commissionGuid":"a4975c9ff9e947bd8d7ed89c0f09e78b"}}
     ],
     "serviceGroup": "yc_wl_service_dev",
     "serviceId": "ycOutputQueryApi",
