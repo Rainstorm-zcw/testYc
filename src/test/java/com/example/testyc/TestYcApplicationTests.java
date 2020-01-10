@@ -5,9 +5,14 @@ import com.alibaba.dubbo.config.ReferenceConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.utils.ReferenceConfigCache;
 import com.alibaba.dubbo.rpc.service.GenericService;
+import com.alibaba.fastjson.JSON;
+import com.example.testyc.persistence.vo.AccountCheckConstants;
+import com.example.testyc.persistence.vo.CommResultAo;
 import com.example.testyc.util.EhcacheConfig;
+import com.example.testyc.util.TokenUtil;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.poi.ss.formula.functions.T;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -118,5 +123,39 @@ class TestYcApplicationTests {
         Object object2 = ehcacheConfig.get("myCache", key);
         log.info("注解方式重新输出缓存:{}", object2);
     }
+
+    @Test
+    public void bubbleSort() {
+        int[] n = {2, 4, 1, 13, 35, 12, 25};
+        for (int i = 0; i < n.length - 1; i++) {
+            log.info("输出n[i]:{}----------", n[i]);
+            for (int j = 0; j < n.length - 1 - i; j++) {
+                log.info("输出n[i][j]:{}-----{}", n[i], n[j]);
+                if (n[j] > n[j + 1]) {
+                    int temp = n[j];
+                    n[j] = n[j + 1];
+                    n[j + 1] = temp;
+                }
+            }
+        }
+        log.info("输出结果:{}", JSON.toJSONString(n));
+    }
+
+
+    @Test
+    public void testToken() throws Exception{
+        TokenUtil token = new TokenUtil();
+        token.setMillSecond(System.currentTimeMillis());
+        token.setAt(AccountCheckConstants.BindCompanyActionTypeEnum.CREATE_COMPANY);
+        token.setCompanyName("技术有限公司");
+        token.setPhone("13737373777");
+        String secret = TokenUtil.encrypt(token);
+        log.info("当前请求时间");
+        Thread.sleep(11*1000);
+        CommResultAo<TokenUtil> tokenUtilCommResultAo = token.auditActionSecret(AccountCheckConstants.BindCompanyActionTypeEnum.CREATE_COMPANY, secret, token.getPhone(), token.getCompanyName());
+        log.info("结果为:{}", JSON.toJSONString(tokenUtilCommResultAo));
+
+    }
+
 
 }
