@@ -22,13 +22,14 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         RabbitMQApi annotation;
-        if(handler instanceof HandlerMethod) {
+        if (handler instanceof HandlerMethod) {
             annotation = ((HandlerMethod) handler).getMethodAnnotation(RabbitMQApi.class);
-        }else{
+        } else {
             return true;
         }
         // 这写你拦截需要干的事儿，比如取缓存，SESSION，权限判断等
-        if(annotation != null){
+        if (annotation != null) {
+            request.getHeader("token");
             log.info("拦截器启动");
         }
         return true;
