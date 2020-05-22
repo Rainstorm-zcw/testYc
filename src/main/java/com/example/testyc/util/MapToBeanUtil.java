@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.sf.cglib.beans.BeanMap;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import java.util.Map;
  * @date 2019-01-06
  * @description map与bean工具类
  */
+@Component
 public class MapToBeanUtil {
 
     /**
