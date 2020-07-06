@@ -1,16 +1,22 @@
 package com.example.testyc.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.example.testyc.persistence.entity.Vuser;
 import com.example.testyc.support.annotation.OuyeelApi;
 import com.example.testyc.support.command.RequestCommand;
 import com.example.testyc.support.util.DubboServiceFactory;
+import com.example.testyc.util.ValidateUtility;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +52,26 @@ public class HyTestController {
         DubboServiceFactory dubbo = DubboServiceFactory.getInstance();
 
         return dubbo.genericInvoke(dto.getServiceId(), dto.getServiceGroup(), dto.getVersion(), dto.getInterfaceName(), dto.getMethodName(), paramInfos);
+    }
+
+    @RequestMapping(value = "testValidatorUser", method = RequestMethod.POST)
+    @ApiOperation("测试验证用户信息")
+    @ResponseBody
+    public List testValidatorUser(@RequestBody @Valid Vuser vuser, BindingResult result){
+        log.info("输出vUser:{}", JSON.toJSONString(vuser));
+        String resulst = "";
+        try {
+            ValidateUtility.judgeValidate(result);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.error(ex.getMessage());
+            resulst = ex.getMessage();
+        }
+        List list = Lists.newArrayList();
+        list.add("大哥");
+        list.add("别害怕");
+        //return "这是返回结果";
+        return list;
     }
 
 }

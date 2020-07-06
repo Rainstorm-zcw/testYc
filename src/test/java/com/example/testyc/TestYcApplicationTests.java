@@ -9,6 +9,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.example.testyc.persistence.entity.StandardAddressConstants;
 import com.example.testyc.persistence.entity.User;
+import com.example.testyc.persistence.entity.UserConcat;
 import com.example.testyc.persistence.entity.UsersCopy;
 import com.example.testyc.persistence.vo.AccountCheckConstants;
 import com.example.testyc.persistence.vo.CommResultAo;
@@ -21,6 +22,7 @@ import org.apache.catalina.startup.UserConfig;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.formula.functions.T;
+import org.assertj.core.util.Sets;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,6 +35,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 
@@ -246,11 +251,11 @@ class TestYcApplicationTests {
         Map map = Maps.newHashMap();
         map.put(1000, "1");
         map.put(3000, "3");
-        map.put(1000, "2");
+        map.put(2000, "2");
 
         map.entrySet().stream().sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()));
         log.info("輸出map：{}", JSON.toJSONString(map));
-
+        log.info("输出多少个map:{}", map.size());
 
     }
 
@@ -484,4 +489,173 @@ class TestYcApplicationTests {
         }
         return null;
     }
+
+
+    @Test
+    public void testSetConvertList(){
+        Set<String> set = Sets.newHashSet();
+        set.add("测试");
+        set.add("UI吗");
+        List<String> list = Lists.newLinkedList(set);
+        log.info("输出:{}", JSON.toJSONString(list));
+        list.add("测试");
+        Set<String> set2 = Sets.newHashSet(list);
+        log.info("输出结果:{}",  JSON.toJSONString(set2));
+        BigDecimal bigDecimal = new BigDecimal(0);
+        BigDecimal bigDecimal1 = new BigDecimal(0);
+        List<Integer> listNum = Lists.newLinkedList();
+        listNum.add(10);
+        listNum.add(20);
+        listNum.add(30);
+        listNum.add(40);
+        BigDecimal bigDecimal2 ;
+        /*for (Integer integer : listNum) {
+            bigDecimal = bigDecimal.add(new BigDecimal(integer));
+
+        }*/
+        BigDecimal reduce = listNum.stream().map(BigDecimal::new).reduce(BigDecimal.ZERO, BigDecimal::add);
+        /*listNum.stream().forEach(a->{
+            BigDecimal bigDecimal3 = new BigDecimal(0);
+            bigDecimal = bigDecimal3.add(new BigDecimal(a));
+        });*/
+
+        bigDecimal1 =  bigDecimal1.add(reduce);
+        bigDecimal1 = bigDecimal1.add(new BigDecimal("100"));
+        log.info("输出结果:{},{}",bigDecimal,bigDecimal1);
+    }
+
+    /**
+     * 验证lambda处理list
+     */
+    @Test
+    public void testStreamSpeed(){
+        List<UsersCopy> list = Lists.newArrayList();
+        UsersCopy usersCopy = new UsersCopy();
+        usersCopy.setCode(1001);
+        usersCopy.setPROVINCE(new BigDecimal("29"));
+        UsersCopy usersCopy1 = new UsersCopy();
+        usersCopy1.setCode(1002);
+        usersCopy1.setPROVINCE(new BigDecimal("30"));
+        UsersCopy usersCopy2 = new UsersCopy();
+        usersCopy2.setCode(1003);
+        usersCopy2.setPROVINCE(new BigDecimal("39"));
+        UsersCopy usersCopy4 = new UsersCopy();
+        usersCopy4.setCode(1001);
+        usersCopy4.setPROVINCE(new BigDecimal("39"));
+        list.add(usersCopy);
+        list.add(usersCopy1);
+        list.add(usersCopy2);
+        list.add(usersCopy4);
+
+        Map<Double, List<UsersCopy>> collect = list.stream().collect(Collectors.groupingBy(UsersCopy::getCode));
+        log.info("输出结果:{}", JSON.toJSONString(collect));
+        List<BigDecimal> listAmount = Lists.newArrayList();
+        collect.forEach((k, v) -> {
+
+            v.forEach(a -> {
+                BigDecimal amount = a.getPROVINCE().divide(new BigDecimal(2),2,BigDecimal.ROUND_HALF_UP).multiply(new BigDecimal("10")).setScale(2,BigDecimal.ROUND_HALF_UP);
+                listAmount.add(amount);
+            });
+        });
+
+        log.info("输出结果:{}", JSON.toJSONString(listAmount));
+        BigDecimal reduce = listAmount.stream().reduce(BigDecimal.ZERO, BigDecimal::add);
+        log.info("输出最后结果:{}", JSON.toJSONString(reduce));
+    }
+
+
+    /**
+     * 测试stream 和 parallelStream
+     *
+     * 100000 十万数据 (不加延迟)
+     * stream耗时:7ms parallelStream耗时:6ms foreach耗时:1ms
+     *
+     * 10000 万级数据（加延迟）
+     * stream耗时:16418ms
+     * parallelStream耗时:2044ms
+     * foreach耗时:16396ms
+     */
+    @Test
+    public void testStreamAndParallelStream(){
+
+        List<Integer> listStream = Lists.newArrayList();
+        int num = 10000;
+        long startTime = System.currentTimeMillis();
+        log.info("list开始处理");
+        for (int i = 0; i < num; i++) {
+          /*  try {
+                TimeUnit.MILLISECONDS.sleep(1);
+            }catch (InterruptedException ex){
+                ex.printStackTrace();
+            }*/
+            listStream.add(i);
+        }
+        log.info("list处理完毕+"+(System.currentTimeMillis() - startTime)+"ms");
+        startTime = System.currentTimeMillis();
+        listStream.stream().filter(Objects::nonNull).forEach(a -> {
+            try {
+                TimeUnit.MILLISECONDS.sleep(1);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
+        log.info("stream耗时:{}ms", (System.currentTimeMillis() - startTime));
+
+        startTime = System.currentTimeMillis();
+        listStream.parallelStream().filter(Objects::nonNull).forEach(a -> {
+            try {
+                TimeUnit.MILLISECONDS.sleep(1);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        });
+        log.info("parallelStream耗时:{}ms", (System.currentTimeMillis() - startTime));
+        startTime = System.currentTimeMillis();
+        for (int nums : listStream) {
+            try {
+                TimeUnit.MILLISECONDS.sleep(1);
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
+        log.info("foreach耗时:{}ms", (System.currentTimeMillis() - startTime));
+    }
+
+    @Test
+    public void testConcat(){
+        UserConcat user = new UserConcat();
+        user.setKeyWord("测试");
+        user.setCode("hha ");
+        user.setPROVINCE("ceh8ngshi");
+        log.info(user.getKeyWord());
+    }
+
+    @Test
+    public void testLock(){
+
+    }
+
+    private void lock(String key){
+        Lock lock = new ReentrantLock();
+        try {
+            Thread.sleep(2000);
+            lock.lock();
+        }catch (Exception ex){
+
+        }finally {
+            lock.unlock();
+        }
+    }
+
+    @Test
+    public void test(){
+        for(int i = 1 ; i<10 ;i ++){
+            if (i % 2 == 0) {
+                log.info("结果:{}", i);
+                continue;
+            }
+            log.info("this is result:{}", i);
+        }
+    }
 }
+
