@@ -46,6 +46,7 @@ public class RedisUtil {
 
     public void setStr(String key, Object value) {
         redisTemplate.opsForValue().set(key, value, SECONDS, TimeUnit.SECONDS);
+        redisTemplate.boundHashOps("").getKey();
 //        redisTemplate.opsForValue().setIfPresent();
 
     }

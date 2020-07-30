@@ -656,6 +656,37 @@ class TestYcApplicationTests {
             }
             log.info("this is result:{}", i);
         }
+
+        /**
+         * Integer类的内部缓存了-128~127之间的256个Integer对象，
+         * 如果valueOf()方法需要把这个范围之内的整数转换成Integer对象时，
+         * valueOf()方法不会去new对象，而是从缓存中直接获取
+         */
+        Integer i1 = 100;
+        Integer i2 = 100;
+        Integer i3 = 200;
+        Integer i4 = 200;
+        Integer i5 = 127;
+        Integer i6 = 127;
+        Integer i7 = 128;
+        Integer i8 = 128;
+        System.out.println(i1 == i2);
+        System.out.println(i3 == i4);
+        System.out.println(i5 == i6);
+        System.out.println(i7 == i8);
     }
+
+    @Test
+    public void testOr(){
+        String a = "a";
+        String b = "c";
+        if(!"a".equals(a) || !"c".equals(b)){
+            System.out.println("哈哈哈哈");
+        }else{
+            System.out.println("嘿");
+        }
+    }
+
+
 }
 

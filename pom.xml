@@ -166,6 +166,13 @@
             <artifactId>commons-beanutils</artifactId>
             <version>1.8.3</version>
         </dependency>
+
+        <!-- bloomFilter -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>23.0</version>
+        </dependency>
     </dependencies>
 
     <!--<profiles>
