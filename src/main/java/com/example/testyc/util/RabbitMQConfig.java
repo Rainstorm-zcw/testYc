@@ -119,6 +119,31 @@ public class RabbitMQConfig {
         return BindingBuilder.bind(queue).to(exchange).with("zcw.same");
     }
 
+    @Bean(name = "queueSecKill")
+    public Queue queueSecKill(){
+        return new Queue("queueSecKill");
+    }
+
+    @Bean(name = "directExchangeSecKill")
+    public DirectExchange directExchangeSecKill(){
+        return new DirectExchange("directExchangeSecKill");
+    }
+
+    @Bean
+    public Binding bindSecKill(@Qualifier(value = "queueSecKill") Queue queue, @Qualifier("directExchangeSecKill") DirectExchange exchange){
+        return BindingBuilder.bind(queue).to(exchange).with("zcw.secKill");
+    }
+
+    @Bean(name = "queueSecKillRabbitAndRedis")
+    public Queue queueSecKillRabbitAndRedis(){
+        return new Queue("queueSecKillRabbitAndRedis");
+    }
+
+    //绑定rabbit+redis方案秒杀
+    @Bean
+    public Binding bindSecKillRabbitMQAndRedis(@Qualifier(value = "queueSecKillRabbitAndRedis") Queue queue, @Qualifier("directExchangeSecKill") DirectExchange exchange){
+        return BindingBuilder.bind(queue).to(exchange).with("zcw.secKillRabbitMQAndRedis");
+    }
 
     /**
      * topic exchange

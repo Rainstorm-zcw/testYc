@@ -60,7 +60,7 @@
             <maxHistory>60</maxHistory>
         </rollingPolicy>
     </appender>
-    <logger name="com.example.testyc.persistence.mapper.TWlStoreInfoMapper" level="DEBUG"/>
+    <logger name="com.example.testyc.persistence.mapper" level="INFO"/>
 
     <!-- 根节点，表名基本的日志级别，里面可以由多个appender规则 -->
     <!-- level="info"代表基础日志级别为info -->

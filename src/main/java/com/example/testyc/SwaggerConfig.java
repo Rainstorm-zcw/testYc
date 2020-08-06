@@ -2,6 +2,7 @@ package com.example.testyc;
 
 import com.example.testyc.support.annotation.OuyeelApi;
 import com.example.testyc.support.annotation.RabbitMQApi;
+import com.example.testyc.support.annotation.StudyInfoApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -57,7 +58,7 @@ public class SwaggerConfig {
                 .select()
                 .apis(RequestHandlerSelectors.withClassAnnotation(RabbitMQApi.class))
                 .build()
-                .apiInfo(innerApiInfo());
+                .apiInfo(rabbitMQInfo());
     }
 
     public ApiInfo rabbitMQInfo() {
@@ -68,6 +69,31 @@ public class SwaggerConfig {
                 .licenseUrl("http://localhost:8888/doc.html")
                 .version("1.0")
                 .description("测试云仓服务接口")
+                .termsOfServiceUrl("http://localhost:8888/doc.html")
+                .build()
+                ;
+    }
+
+    @Bean
+    public Docket studyApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("常见业务需求")
+                .genericModelSubstitutes(DeferredResult.class)
+                .useDefaultResponseMessages(false)
+                .forCodeGeneration(false)
+                .select()
+                .apis(RequestHandlerSelectors.withClassAnnotation(StudyInfoApi.class))
+                .build()
+                .apiInfo(studyInfo());
+    }
+
+    public ApiInfo studyInfo() {
+        return new ApiInfoBuilder()
+                .title("常见业务需求")
+                .description("模拟秒杀、超卖、高并发")
+                .contact(new Contact("zcw", "null", "zhaochengwei968@163.com"))
+                .licenseUrl("http://localhost:8888/doc.html")
+                .version("1.0")
                 .termsOfServiceUrl("http://localhost:8888/doc.html")
                 .build()
                 ;

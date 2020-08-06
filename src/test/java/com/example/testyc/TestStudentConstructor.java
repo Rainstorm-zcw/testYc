@@ -1,13 +1,17 @@
 package com.example.testyc;
 
+import com.alibaba.fastjson.JSON;
 import com.example.testyc.persistence.entity.Student;
+import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.BeanUtils;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
 
 @Slf4j
 @SpringBootTest
@@ -152,6 +156,19 @@ public class TestStudentConstructor {
             }
 
         }
+    }
+
+    /**
+     * list 复制
+     */
+    @Test
+    public void copyList(){
+        List<String> list = Lists.newArrayList();
+        list.add("A");
+        list.add("B");
+        List<String> listB = Lists.newArrayList();
+        BeanUtils.copyProperties(list,listB);
+        log.info("输出:{}", JSON.toJSONString(listB));
     }
 
 }
