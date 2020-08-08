@@ -146,7 +146,7 @@ public class SecKillOrderServiceImpl implements SecKillOrderService {
             returnResult.setMessage("没有此商品");
             return returnResult;
         }
-        if (seckillProduct.getStockNum() == 0) {
+        if (seckillProduct.getStockNum() <= 0) {
             log.info("商品已经秒杀完");
             returnResult.setStatus("0");
             returnResult.setMessage("商品已经秒杀完");
@@ -166,21 +166,6 @@ public class SecKillOrderServiceImpl implements SecKillOrderService {
             redisUtil.setStr("SecKillProduct:" + seckillProduct.getId(), seckillProduct);
             //保存秒杀用户信息
             redisUtil.setStr("SecKillUser:" + seckillOrder.getUserId(), seckillOrder);
-            if (seckillProduct.getStockNum() == 0) {
-                //将订单信息 写入数据库
-                List list = redisUtil.likeStr("SecKillUser");
-                for (Object o : list) {
-                    log.info("输出订单信息:{}", JSON.toJSONString(o));
-                    //创建秒杀订单
-                    SeckillOrder str1 = (SeckillOrder) redisUtil.getStr(o.toString());
-                    //createSecKillOrderRedis(str1);
-                }
-                //设置秒杀商品库存为0
-                SeckillProduct editSecKillProduct = new SeckillProduct();
-                editSecKillProduct.setId(seckillProduct.getId());
-                editSecKillProduct.setStockNum(0);
-                //seckillProductMapper.updateByPrimaryKeySelective(editSecKillProduct);
-            }
         }
         return returnResult;
     }
@@ -233,7 +218,7 @@ public class SecKillOrderServiceImpl implements SecKillOrderService {
         if (seckillProduct.getStockNum() <= 0) {
             return returnResult.FAIL("商品库存为0");
         }
-        //5、判断订单是否已经满了
+        //2、判断订单是否已经满了
         List list = redisUtil.likeStr("SecKillUser");
         if (list.size() >= seckillProduct.getNum()) {
             log.info("订单满了，秒杀结束");
@@ -244,7 +229,7 @@ public class SecKillOrderServiceImpl implements SecKillOrderService {
         redisUtil.setStr("SecKillProduct:" + seckillOrder.getSeckillId(), seckillProduct);
 
         //2、判断是否已经秒杀
-        SeckillOrderExample seckillOrderExample = new SeckillOrderExample();
+        /*SeckillOrderExample seckillOrderExample = new SeckillOrderExample();
         SeckillOrderExample.Criteria criteria = seckillOrderExample.createCriteria();
         criteria.andSellerIdEqualTo(seckillOrder.getSeckillId());
         criteria.andUserIdEqualTo(seckillOrder.getUserId());
@@ -252,7 +237,7 @@ public class SecKillOrderServiceImpl implements SecKillOrderService {
         if (CollectionUtils.isNotEmpty(secKillOrders)) {
             log.info("用户" + seckillOrder.getUserId() + "已经秒杀");
             return returnResult.FAIL("已经秒杀");
-        }
+        }*/
         //4、推送rabbitMQ
         seckillOrder.setStatus("1");
         seckillOrder.setCreateTime(new Date());
@@ -263,51 +248,20 @@ public class SecKillOrderServiceImpl implements SecKillOrderService {
         String id = UUID.randomUUID().toString();
         CorrelationData correlationId = new CorrelationData(id);
         rabbitTemplate.convertAndSend("directExchangeSecKill", "zcw.secKillRabbitMQAndRedis", seckillOrder, correlationId);
-
         return returnResult.SUCCESS("抢购中。。。");
     }
 
     @RabbitListener(queues = "queueSecKillRabbitAndRedis")
     public void listenerSecKillRedisAndRabbitMQ(SeckillOrder seckillOrder) {
-        /*//1、获取redis中秒杀商品
-        SeckillProduct secKillProductRedis = (SeckillProduct) redisUtil.getStr("SecKillProduct:" + seckillOrder.getSeckillId());
-        if (secKillProductRedis.getStockNum() <= 0) {
-            log.info("redis商品库存为0");
-            return ;
-        }*/
-        //3、判断sql库存是否足够
+        //1、判断sql库存是否足够
         SeckillProduct seckillProduct = seckillProductMapper.selectByPrimaryKey(seckillOrder.getSeckillId());
-        /*if (seckillProduct.getStockNum() <= 0) {
-            log.info(seckillOrder.getSellerId() + "sql商品库存不足");
-            return;
-        }*/
-        //todo 判断订单是否已经满了
+        //2、 判断订单是否已经满了
         List list = redisUtil.likeStr("SecKillUser");
         if (list.size() >= seckillProduct.getNum()) {
             log.info("订单满了，秒杀结束");
             return;
         }
-        //2、判断是否已经秒杀成功
-        SeckillOrderExample seckillOrderExample = new SeckillOrderExample();
-        SeckillOrderExample.Criteria criteria = seckillOrderExample.createCriteria();
-        criteria.andSellerIdEqualTo(seckillOrder.getSeckillId());
-        criteria.andUserIdEqualTo(seckillOrder.getUserId());
-        List<SeckillOrder> secKillOrders = seckillOrderMapper.selectByExample(seckillOrderExample);
-        if (CollectionUtils.isNotEmpty(secKillOrders)) {
-            log.info("用户" + seckillOrder.getUserId() + "已经秒杀");
-            return;
-        }
-
-        //4、判断订单是否超出库存
-        /*SeckillOrderExample queryOrderExample = new SeckillOrderExample();
-        SeckillOrderExample.Criteria criteria1 = queryOrderExample.createCriteria();
-        criteria1.andSellerIdEqualTo(seckillOrder.getSeckillId());
-        List<SeckillOrder> seckillOrders = seckillOrderMapper.selectByExample(queryOrderExample);
-        if (seckillOrders.size() >= seckillProduct.getNum()) {
-            log.info("订单已经超了");
-            return;
-        }*/
-        //todo 收到mq后将订单信息保存到redis
+        ///3、 收到mq后将订单信息保存到redis
         createOrderInRedis(seckillOrder, seckillProduct);
     }
 
@@ -326,14 +280,6 @@ public class SecKillOrderServiceImpl implements SecKillOrderService {
             }
             log.info("输出订单信息:{}", JSON.toJSONString(o));
             log.info("sql当前库存为:{}", seckillProduct.getStockNum());
-            /*
-            //先更新数据库，再新增订单，会出现数据不一致情况
-            int subtract = seckillProductMapper.updateByPrimaryKeySelective(editSecKillProduct);
-            if (subtract > 0) {
-                createSecKillOrderRedis(addSecKillOrder);
-                addSecKillOrder.setStatus("0");
-                redisUtil.setStr("SecKillUser:" + addSecKillOrder.getUserId(), addSecKillOrder);
-            }*/
             //订单先去重，创建订单表并且更新redis库存
             if (createSecKillOrderRedis(addSecKillOrder) > 0) {
                 addSecKillOrder.setStatus("0");
