@@ -106,5 +106,17 @@ public class StudyController {
         return secKillOrderService.secKillRedisAndRabbitMQ(seckillOrder);
     }
 
+    @GetMapping("atomicExecute")
+    @ApiOperation("限流atomic方式")
+    public void atomicExecute(){
+        secKillOrderService.atomicIntegerExecute();
+    }
+
+    @GetMapping("semaphoreExecute")
+    @ApiOperation("限流semaphore方式")
+    public void semaphoreExecute(){
+        secKillOrderService.semaphoreExecute();
+    }
+
 
 }

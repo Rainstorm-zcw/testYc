@@ -1,9 +1,7 @@
 package com.example.testyc.service.impl;
 
-import com.alibaba.dubbo.common.utils.CollectionUtils;
 import com.alibaba.fastjson.JSON;
 import com.example.testyc.persistence.entity.SeckillOrder;
-import com.example.testyc.persistence.entity.SeckillOrderExample;
 import com.example.testyc.persistence.entity.SeckillProduct;
 import com.example.testyc.persistence.entity.SeckillProductExample;
 import com.example.testyc.persistence.mapper.SeckillOrderMapper;
@@ -11,8 +9,9 @@ import com.example.testyc.persistence.mapper.SeckillProductMapper;
 import com.example.testyc.persistence.vo.ReturnResult;
 import com.example.testyc.service.SecKillOrderService;
 import com.example.testyc.util.RedisUtil;
-import com.google.common.collect.Sets;
+import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -23,6 +22,9 @@ import org.springframework.util.ObjectUtils;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -227,6 +229,13 @@ public class SecKillOrderServiceImpl implements SecKillOrderService {
         //3、更新redis库存-1
         seckillProduct.setStockNum(seckillProduct.getStockNum() - 1);
         redisUtil.setStr("SecKillProduct:" + seckillOrder.getSeckillId(), seckillProduct);
+        /*if(seckillProduct.getStockNum() == 0){
+            //todo 同步到数据库
+            SeckillProduct editSecKillProduct = new SeckillProduct();
+            editSecKillProduct.setId(seckillProduct.getId());
+            editSecKillProduct.setStockNum(0);
+            seckillProductMapper.updateByPrimaryKeySelective(editSecKillProduct);
+        }*/
 
         //2、判断是否已经秒杀
         /*SeckillOrderExample seckillOrderExample = new SeckillOrderExample();
@@ -252,7 +261,7 @@ public class SecKillOrderServiceImpl implements SecKillOrderService {
     }
 
     @RabbitListener(queues = "queueSecKillRabbitAndRedis")
-    public void listenerSecKillRedisAndRabbitMQ(SeckillOrder seckillOrder) {
+    public void listenerSecKillRedisAndRabbitMQ(SeckillOrder seckillOrder, Message message, Channel channel) {
         //1、判断sql库存是否足够
         SeckillProduct seckillProduct = seckillProductMapper.selectByPrimaryKey(seckillOrder.getSeckillId());
         //2、 判断订单是否已经满了
@@ -261,8 +270,14 @@ public class SecKillOrderServiceImpl implements SecKillOrderService {
             log.info("订单满了，秒杀结束");
             return;
         }
-        ///3、 收到mq后将订单信息保存到redis
-        createOrderInRedis(seckillOrder, seckillProduct);
+        try {
+            ///3、 收到mq后将订单信息保存到redis
+            createOrderInRedis(seckillOrder, seckillProduct);
+            /*channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
+            log.info("dead message  10s 后 消费消息 :" + new String(message.getBody()));*/
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     //假设status 0 时已经加过数据库
@@ -311,4 +326,51 @@ public class SecKillOrderServiceImpl implements SecKillOrderService {
             return;
         }
     }
+
+    private static AtomicInteger count = new AtomicInteger(0);
+
+    /**
+     * 限流工具
+     * JUC工具包下的 AtomicInteger 和 semaphore
+     * 阿涛麦克
+     */
+    @Override
+    public void atomicIntegerExecute() {
+        if (count.get() >= 5) {
+            log.info("请求用户过多，请稍后重试!" + System.currentTimeMillis() / 1000);
+        } else {
+            count.incrementAndGet();
+            try {
+                //处理核心逻辑
+                TimeUnit.SECONDS.sleep(1);
+                log.info("atomic执行中：" + System.currentTimeMillis() / 1000);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            } finally {
+                count.decrementAndGet();
+            }
+        }
+    }
+
+    //限流阈值50
+    private static Semaphore semaphore = new Semaphore(3);
+
+    //semaphore相对atomic优点：如果是瞬时的高并发，可以使请求在阻塞队列下排队，而不是马上解决请求，从而达到一个流量
+    @Override
+    public void semaphoreExecute() {
+        if (semaphore.getQueueLength() > 5) {
+            log.info("当前等待排队的任务数大于100，请稍后重试。。");
+        }
+        try {
+            semaphore.acquire();
+            //处理核心逻辑
+            TimeUnit.SECONDS.sleep(1);
+            log.info(semaphore.getQueueLength()+"semaphore执行中：" + System.currentTimeMillis() / 1000);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }finally {
+            semaphore.release();
+        }
+    }
+
 }

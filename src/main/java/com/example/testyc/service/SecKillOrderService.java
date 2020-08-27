@@ -48,4 +48,9 @@ public interface SecKillOrderService {
      * @return
      */
     ReturnResult secKillRedisAndRabbitMQ(SeckillOrder seckillOrder);
+
+    void atomicIntegerExecute();
+
+    void semaphoreExecute();
+
 }

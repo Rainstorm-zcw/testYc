@@ -18,11 +18,15 @@ spring:
     password: guest
     listener:
       simple:
-        concurrency: 2
-        max-concurrency: 3
-        prefetch: 5
+        concurrency: 1 # 消费者数量
+        max-concurrency: 2 # 启动消费者最大数量
+        prefetch: 1 # 消费者每次从队列获取的消息数量
         #prefetch 使得每个Consumer在同一个时间点最多处理5个Message、换句话说,在接收到该Consumer的ack前,它不会将新的Message分发给它
-        acknowledge-mode: none #消息接收确认 NONE：自动确认、AUTO：根据情况确认、MANUAL：手动确认
+        acknowledge-mode: NONE #消息接收确认 NONE：自动确认、AUTO：根据情况确认、MANUAL：手动确认
+        retry:
+          enabled: false #开始消费者重试
+          max-attempts: 2 #最大重试次数
+          initial-interval: 2000 #重试时间间隔
   redis:
     host: 127.0.0.1
     port: 6379
