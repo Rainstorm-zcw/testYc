@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.example.testyc.persistence.entity.TWlStoreInfo;
 import com.example.testyc.persistence.entity.TWlStoreInfoExample;
 import com.example.testyc.persistence.mapper.TWlStoreInfoMapper;
-import com.example.testyc.support.annotation.OuyeelApi;
+import com.example.testyc.support.annotation.TestYcApi;
 import com.example.testyc.support.command.RequestCommand;
 import com.example.testyc.support.util.DubboServiceFactory;
 import com.example.testyc.util.EhcacheConfig;
@@ -27,7 +27,7 @@ import java.util.Random;
  * @date 2019-09-24
  */
 @Slf4j
-@OuyeelApi
+@TestYcApi
 @RestController
 @RequestMapping("/yc")
 @Api(tags = "云仓测试接口")

@@ -1,6 +1,6 @@
 package com.example.testyc;
 
-import com.example.testyc.support.annotation.OuyeelApi;
+import com.example.testyc.support.annotation.TestYcApi;
 import com.example.testyc.support.annotation.RabbitMQApi;
 import com.example.testyc.support.annotation.StudyInfoApi;
 import org.springframework.context.annotation.Bean;
@@ -31,7 +31,7 @@ public class SwaggerConfig {
                 .useDefaultResponseMessages(false)
                 .forCodeGeneration(false)
                 .select()
-                .apis(RequestHandlerSelectors.withClassAnnotation(OuyeelApi.class))
+                .apis(RequestHandlerSelectors.withClassAnnotation(TestYcApi.class))
                 .build()
                 .apiInfo(innerApiInfo());
     }

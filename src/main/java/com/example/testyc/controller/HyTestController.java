@@ -2,7 +2,7 @@ package com.example.testyc.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.example.testyc.persistence.entity.Vuser;
-import com.example.testyc.support.annotation.OuyeelApi;
+import com.example.testyc.support.annotation.TestYcApi;
 import com.example.testyc.support.command.RequestCommand;
 import com.example.testyc.support.util.DubboServiceFactory;
 import com.example.testyc.util.ValidateUtility;
@@ -12,8 +12,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -26,7 +24,7 @@ import java.util.Map;
  * @description 会员测试类
  */
 @Slf4j
-@OuyeelApi
+@TestYcApi
 @RestController
 @RequestMapping("/hy")
 @Api(tags = "会员测试接口")
