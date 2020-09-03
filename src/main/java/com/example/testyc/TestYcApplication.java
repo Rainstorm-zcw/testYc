@@ -9,7 +9,7 @@ import org.springframework.cache.annotation.EnableCaching;
 /*@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})*/
 @SpringBootApplication
 @EnableCaching
-@MapperScan(basePackages = {"com.example.testyc.*"})
+@MapperScan(basePackages = {"com.example.testyc.persistence.mapper"})
 public class TestYcApplication {
 
     public static void main(String[] args) {

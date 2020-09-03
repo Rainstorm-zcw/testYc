@@ -33,6 +33,7 @@ public class RabbitController {
     private RabbitTemplate rabbitTemplate;
 
 
+    @RabbitMQApi
     @GetMapping(value = "direct")
     @ApiOperation(value = "direct 直连", notes = "rabbitMQ direct(直连)模式")
     public void direct() {

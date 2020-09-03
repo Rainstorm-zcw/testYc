@@ -40,10 +40,16 @@ public class RabbitMQConfig {
             @Override
             public void confirm(CorrelationData correlationData, boolean ack, String cause) {
                 logger.info("消息发送成功：correlationData(消息唯一标识:{}),ack(确认结果:{}),cause(失败原因:{})", correlationData, ack, cause);
+                if(ack){
+                    logger.info("消息发送成功");
+                }else{
+                    logger.info("消息发送失败");
+                }
             }
         });
         /**
          * 启动消息失败返回，比如路由不到队列时触发回调
+         * exchange - 路由时失败
          */
         rabbitTemplate.setReturnCallback(new RabbitTemplate.ReturnCallback() {
             @Override
@@ -113,6 +119,31 @@ public class RabbitMQConfig {
         return BindingBuilder.bind(queue).to(exchange).with("zcw.same");
     }
 
+    @Bean(name = "queueSecKill")
+    public Queue queueSecKill(){
+        return new Queue("queueSecKill");
+    }
+
+    @Bean(name = "directExchangeSecKill")
+    public DirectExchange directExchangeSecKill(){
+        return new DirectExchange("directExchangeSecKill");
+    }
+
+    @Bean
+    public Binding bindSecKill(@Qualifier(value = "queueSecKill") Queue queue, @Qualifier("directExchangeSecKill") DirectExchange exchange){
+        return BindingBuilder.bind(queue).to(exchange).with("zcw.secKill");
+    }
+
+    @Bean(name = "queueSecKillRabbitAndRedis")
+    public Queue queueSecKillRabbitAndRedis(){
+        return new Queue("queueSecKillRabbitAndRedis");
+    }
+
+    //绑定rabbit+redis方案秒杀
+    @Bean
+    public Binding bindSecKillRabbitMQAndRedis(@Qualifier(value = "queueSecKillRabbitAndRedis") Queue queue, @Qualifier("directExchangeSecKill") DirectExchange exchange){
+        return BindingBuilder.bind(queue).to(exchange).with("zcw.secKillRabbitMQAndRedis");
+    }
 
     /**
      * topic exchange

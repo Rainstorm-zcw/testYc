@@ -4,10 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.example.testyc.persistence.entity.TWlStoreInfo;
 import com.example.testyc.persistence.entity.TWlStoreInfoExample;
 import com.example.testyc.persistence.mapper.TWlStoreInfoMapper;
-import com.example.testyc.support.annotation.OuyeelApi;
+import com.example.testyc.support.annotation.TestYcApi;
 import com.example.testyc.support.command.RequestCommand;
 import com.example.testyc.support.util.DubboServiceFactory;
 import com.example.testyc.util.EhcacheConfig;
+import com.example.testyc.util.RedisUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import io.swagger.annotations.Api;
@@ -19,13 +20,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * @author zcw
  * @date 2019-09-24
  */
 @Slf4j
-@OuyeelApi
+@TestYcApi
 @RestController
 @RequestMapping("/yc")
 @Api(tags = "云仓测试接口")
@@ -42,6 +44,9 @@ public class YcTestController {
 
     @Autowired
     private EhcacheConfig ehcacheConfig;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     /**
      * 测试结果
@@ -117,11 +122,28 @@ public class YcTestController {
         log.info("输出缓存:{}", object.toString());
         val = "注解缓存测试";
         //ehcacheConfig.annotationSave(key, val);
-        //ehcacheConfig.annotationRemove(key);
+        //ehcacheConfig.annotationRemove(·key);
         Object object2 = ehcacheConfig.cacheIng(key, "注解缓存测试");
         log.info("输出缓存:{}", object2);
     }
 
 
+    @RequestMapping(value = "testRedis", method = RequestMethod.POST)
+    @ApiOperation("测试redis")
+    public void testRedis(){
+        Map map = Maps.newHashMap();
+        map.put("name", "zcw");
+        map.put("code", 968);
+        map.put("wifi","myFamily96888.");
+        Random random = new Random();
+        int num = (int) (random.nextDouble() * (100000 - 10000) + 10000);
+        redisUtil.setStr("returnWork:"+num,JSON.toJSONString(map));
+    }
+
+    @RequestMapping(value = "testDelRedis", method = RequestMethod.GET)
+    @ApiOperation("删除redis")
+    public void testDelRedis(){
+        redisUtil.delStr("returnWork:*");
+    }
 
 }

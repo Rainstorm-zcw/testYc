@@ -13,7 +13,7 @@
         <plugin type="com.example.testyc.mbg.OracleFixedPlugin" />
         <commentGenerator type="com.example.testyc.mbg.MainGenerator"/>
         <!--数据库链接URL，用户名、密码 -->
-        <jdbcConnection driverClass="oracle.jdbc.OracleDriver" connectionURL="jdbc:oracle:thin:@10.60.146.47:1521:yctest"  userId="vasdba" password="vasdba">
+        <jdbcConnection driverClass="oracle.jdbc.OracleDriver" connectionURL="jdbc:oracle:thin:@"  userId="" password="">
             <property name="remarksReporting" value="true" />
         </jdbcConnection>
         <javaTypeResolver type="com.example.testyc.mbg.JavaTypeResolverForOracle">
