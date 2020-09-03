@@ -61,7 +61,7 @@ public class YcTestController {
         mapParam.put("pageSize", 10);
         mapParam.put("pageNum", 1);
         //后端接口参数类型
-        map.put("paramTypes", "com.ouyeel.wl.servicecenter.yc.api.ycputout.command.QueryYcCompanyCommand");
+        map.put("paramTypes", "");
         //用以调用后端接口的实参
         map.put("Object", mapParam);
         List<Map<String, Object>> paramInfos = Lists.newArrayList();

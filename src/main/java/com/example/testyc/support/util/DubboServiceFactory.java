@@ -95,15 +95,6 @@ public class DubboServiceFactory {
             invokeParamTypes[i] = parameters.get(i).get("paramTypes") + "";
             invokeParams[i] = parameters.get(i).get("Object");
         }
-        /*String[] parameterTypes = new String[]{"com.ouyeel.wl.servicecenter.yc.api.ycputout.command.QueryYcCompanyCommand"};
-        Map<String, Object> mapParam = Maps.newHashMap();
-
-        mapParam.put("class", "com.ouyeel.wl.servicecenter.yc.api.ycputout.command.QueryYcCompanyCommand");
-        mapParam.put("pageSize", 10);
-        mapParam.put("pageNum", 1);
-        Object[] mapParams = new Object[]{mapParam};
-        log.info("输出1:{}", invokeParams);
-        log.info("输出2:{}", mapParams);*/
         return genericService.$invoke(methodName, invokeParamTypes, invokeParams);
 
     }
