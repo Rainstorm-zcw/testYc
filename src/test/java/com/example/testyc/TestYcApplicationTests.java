@@ -92,7 +92,7 @@ class TestYcApplicationTests {
         ReferenceConfig<GenericService> rc = new ReferenceConfig<>();
         rc.setApplication(application);
         rc.setGeneric(true);
-        rc.setInterface("com.ouyeel.wl.servicecenter.yc.api.ycputout.YcOutputQueryApi");
+        rc.setInterface("");
         rc.setId("ycOutputQueryApi");
         rc.setGroup("yc_wl_service_dev");
         rc.setRegistry(registryConfig);
