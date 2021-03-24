@@ -267,7 +267,7 @@ public class SecKillOrderServiceImpl implements SecKillOrderService {
         //2、 判断订单是否已经满了
         List list = redisUtil.likeStr("SecKillUser");
         if (list.size() >= seckillProduct.getNum()) {
-            log.info("订单满了，秒杀结束");
+            log.info("订单满了(数据库等于redis订单)，秒杀结束");
             return;
         }
         try {

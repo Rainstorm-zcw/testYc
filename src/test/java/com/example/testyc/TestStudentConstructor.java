@@ -2,6 +2,7 @@ package com.example.testyc;
 
 import com.alibaba.fastjson.JSON;
 import com.example.testyc.persistence.entity.Student;
+import com.example.testyc.persistence.entity.ValidBeanTest;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -169,6 +170,21 @@ public class TestStudentConstructor {
         List<String> listB = Lists.newArrayList();
         BeanUtils.copyProperties(list,listB);
         log.info("输出:{}", JSON.toJSONString(listB));
+
+        log.info("输出结果:{}", "C001001".equals("C001"));
     }
+
+    @Test
+    public void validTest(){
+        try {
+            ValidBeanTest validBeanTest = new ValidBeanTest();
+            validBeanTest.setCode("1001");
+            log.info("输出校验bean:{}", JSON.toJSONString(validBeanTest));
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+    }
+
+
 
 }

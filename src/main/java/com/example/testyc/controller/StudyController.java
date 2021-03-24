@@ -1,6 +1,8 @@
 package com.example.testyc.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.example.testyc.persistence.entity.SeckillOrder;
+import com.example.testyc.persistence.entity.ValidBeanTest;
 import com.example.testyc.persistence.vo.ReturnResult;
 import com.example.testyc.persistence.vo.SecKillCommand;
 import com.example.testyc.service.SecKillOrderService;
@@ -9,12 +11,14 @@ import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -118,5 +122,111 @@ public class StudyController {
         secKillOrderService.semaphoreExecute();
     }
 
+
+    @PostMapping
+    @ApiOperation("valid校验bean")
+    @ResponseBody
+    public String validBeanTest(@Valid  ValidBeanTest validBeanTest){
+        try {
+            log.info("输出校验bean:{}", JSON.toJSONString(validBeanTest));
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return JSON.toJSONString(validBeanTest);
+    }
+
+
+    /**
+     * 使用线程池的优点
+     * 1、重用线程池的线程，避免因为线程的创建和销毁锁带来的性能开销
+     * 2、有效控制线程池的最大并发数，避免大量的线程之间因抢占系统资源而阻塞
+     * 3、能够对线程进行简单的管理，并提供一下特定的操作如：可以提供定时、定期、单线程、并发数控制等功能
+     */
+    @GetMapping("newCachedThreadPool")
+    @ApiOperation("newCachedThreadPool线程池")
+    public void newCachedThreadPool(){
+        ExecutorService cachedThreadPool = Executors.newCachedThreadPool();
+        for (int i = 0; i < 5; i++) {
+            final int index = i;
+            try {
+                Thread.sleep(2000);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            cachedThreadPool.execute(new Runnable() {
+                @Override
+                public void run() {
+                    log.info("第{}个线程{}", index, Thread.currentThread().getName());
+                }
+            });
+        }
+    }
+
+    @GetMapping("newFixedThreadPool")
+    @ApiOperation("newFixedThreadPool线程池")
+    public void newFixedThreadPool() {
+        ExecutorService fixedThreadPool = Executors.newFixedThreadPool(3);
+        for (int i = 0; i < 5; i++) {
+            final int index = i;
+            fixedThreadPool.execute(new Runnable() {
+                @Override
+                public void run() {
+                    log.info("时间是{},第{}个线程{}", System.currentTimeMillis(), index + 1, Thread.currentThread().getName());
+                    try {
+                        Thread.sleep(2000);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+            });
+        }
+    }
+
+    @GetMapping("scheduledThreadPool")
+    @ApiOperation("scheduledThreadPool线程池/延迟执行代码")
+    public void scheduledThreadPool(){
+        ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(3);
+        log.info("当前时间:{}", System.currentTimeMillis());
+        scheduledThreadPool.schedule(new Runnable() {
+            @Override
+            public void run() {
+                log.info("现在时间:{}", System.currentTimeMillis());
+            }
+        }, 4, TimeUnit.SECONDS);//延迟4秒后执行
+    }
+
+    @GetMapping("scheduledThreadPoolAtFixedRate")
+    @ApiOperation("scheduledThreadPool线程池/定期执行代码")
+    public void scheduledThreadPoolAtFixedRate(){
+        ScheduledExecutorService scheduledThreadPool = Executors.newScheduledThreadPool(3);
+        log.info("开始时间:{}", System.currentTimeMillis());
+        scheduledThreadPool.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                log.info("现在时间:{}", System.currentTimeMillis());
+            }
+        }, 2, 3, TimeUnit.SECONDS);//设置延迟2秒后每3秒执行一次
+    }
+
+    @GetMapping("newSingleThreadPool")
+    @ApiOperation("newSingleThreadPool线程池")
+    public void newSingleThreadPool(){
+        ExecutorService newSingleThreadPool = Executors.newSingleThreadExecutor();
+        for (int i = 0; i < 7; i++) {
+            final int indexs = i;
+            log.info("输出i:{}", i);
+            newSingleThreadPool.execute(new Runnable() {
+                @Override
+                public void run() {
+                    log.info("现在时间：{}第{}个线程", System.currentTimeMillis(), indexs);
+                    try {
+                        Thread.sleep(2000);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+            }
+            });
+        }
+    }
 
 }

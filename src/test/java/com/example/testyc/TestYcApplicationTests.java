@@ -31,6 +31,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -677,14 +678,17 @@ class TestYcApplicationTests {
     }
 
     @Test
-    public void testOr(){
-        String a = "a";
-        String b = "c";
-        if(!"a".equals(a) || !"c".equals(b)){
-            System.out.println("哈哈哈哈");
-        }else{
-            System.out.println("嘿");
-        }
+    public void testOr() throws NoSuchFieldException, IllegalAccessException {
+        Class cache = Integer.class.getDeclaredClasses()[0]; //1
+        Field myCache = cache.getDeclaredField("cache"); //2
+        myCache.setAccessible(true);//3
+
+        Integer[] newCache = (Integer[]) myCache.get(cache); //4
+        newCache[132] = newCache[133]; //5
+
+        int a = 2;
+        int b = a + a;
+        System.out.printf("%d + %d = %d", a, a, b); //
     }
 
 
