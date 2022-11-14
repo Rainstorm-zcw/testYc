@@ -5,10 +5,12 @@ import com.example.testyc.persistence.vo.ReturnResult;
 import com.example.testyc.persistence.vo.SecKillCommand;
 import com.example.testyc.service.SecKillOrderService;
 import com.example.testyc.support.annotation.StudyInfoApi;
+import com.example.testyc.support.util.GinLongUtil;
 import io.swagger.annotations.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +32,9 @@ public class StudyController {
 
     @Resource
     SecKillOrderService secKillOrderService;
+
+    @Autowired
+    GinLongUtil ginLongUtil;
 
     /**
      * 1、不加缓存 只加同步synchronized 测试并发情况下是否超卖
@@ -115,6 +120,8 @@ public class StudyController {
     @GetMapping("semaphoreExecute")
     @ApiOperation("限流semaphore方式")
     public void semaphoreExecute(){
+        log.info("ginLong:{}", ginLongUtil.address);
+
         secKillOrderService.semaphoreExecute();
     }
 

@@ -1,3 +1,4 @@
+/*
 package com.example.testyc;
 
 import com.alibaba.dubbo.config.ApplicationConfig;
@@ -67,9 +68,11 @@ class TestYcApplicationTests {
     @Test
     void decimalTest() {
         double value = 30314905.14142;
-        /**
+        */
+/**
          * 强制转换为int
-         */
+         *//*
+
         int num = (int) value;
         logger.info("输出转换结果:{}", num);
         int count = 1;
@@ -411,11 +414,13 @@ class TestYcApplicationTests {
 
     private static BigDecimal MAXIMUM = new BigDecimal(99999);
     private static BigDecimal REMAINDER = new BigDecimal(999);
-    /**
+    */
+/**
      * 最大重量校验
      * @param maxNum 传的重量值  MAXIMUM 为 9999999999，   REMAINDER 为 999999
      * @return boolean
-     */
+     *//*
+
     private boolean maxWeightCheck(String maxNum){
         if(StringUtils.isBlank(maxNum)){
             maxNum = "0";
@@ -449,9 +454,11 @@ class TestYcApplicationTests {
         }
     }
 
-    /**
+    */
+/**
      * object 转换list
-     */
+     *//*
+
     @Test
     public void testListFilter(){
         List list = Arrays.asList("JACK","ROSE","TOM","JOKER");
@@ -467,7 +474,8 @@ class TestYcApplicationTests {
 
     }
 
-    /**
+    */
+/**
      *     Object obj = getObj();
      *     List<String> list = castList(obj, String.class);
      *     list.forEach(System.out::println);
@@ -475,7 +483,8 @@ class TestYcApplicationTests {
      * @param clazz
      * @param <T>
      * @return
-     */
+     *//*
+
     public static <T> List<T> castList(Object obj, Class<T> clazz)
     {
         List<T> result = new ArrayList<T>();
@@ -509,24 +518,30 @@ class TestYcApplicationTests {
         listNum.add(30);
         listNum.add(40);
         BigDecimal bigDecimal2 ;
-        /*for (Integer integer : listNum) {
+        */
+/*for (Integer integer : listNum) {
             bigDecimal = bigDecimal.add(new BigDecimal(integer));
 
-        }*/
+        }*//*
+
         BigDecimal reduce = listNum.stream().map(BigDecimal::new).reduce(BigDecimal.ZERO, BigDecimal::add);
-        /*listNum.stream().forEach(a->{
+        */
+/*listNum.stream().forEach(a->{
             BigDecimal bigDecimal3 = new BigDecimal(0);
             bigDecimal = bigDecimal3.add(new BigDecimal(a));
-        });*/
+        });*//*
+
 
         bigDecimal1 =  bigDecimal1.add(reduce);
         bigDecimal1 = bigDecimal1.add(new BigDecimal("100"));
         log.info("输出结果:{},{}",bigDecimal,bigDecimal1);
     }
 
-    /**
+    */
+/**
      * 验证lambda处理list
-     */
+     *//*
+
     @Test
     public void testStreamSpeed(){
         List<UsersCopy> list = Lists.newArrayList();
@@ -564,7 +579,8 @@ class TestYcApplicationTests {
     }
 
 
-    /**
+    */
+/**
      * 测试stream 和 parallelStream
      *
      * 100000 十万数据 (不加延迟)
@@ -574,7 +590,8 @@ class TestYcApplicationTests {
      * stream耗时:16418ms
      * parallelStream耗时:2044ms
      * foreach耗时:16396ms
-     */
+     *//*
+
     @Test
     public void testStreamAndParallelStream(){
 
@@ -583,11 +600,13 @@ class TestYcApplicationTests {
         long startTime = System.currentTimeMillis();
         log.info("list开始处理");
         for (int i = 0; i < num; i++) {
-          /*  try {
+          */
+/*  try {
                 TimeUnit.MILLISECONDS.sleep(1);
             }catch (InterruptedException ex){
                 ex.printStackTrace();
-            }*/
+            }*//*
+
             listStream.add(i);
         }
         log.info("list处理完毕+"+(System.currentTimeMillis() - startTime)+"ms");
@@ -657,11 +676,13 @@ class TestYcApplicationTests {
             log.info("this is result:{}", i);
         }
 
-        /**
+        */
+/**
          * Integer类的内部缓存了-128~127之间的256个Integer对象，
          * 如果valueOf()方法需要把这个范围之内的整数转换成Integer对象时，
          * valueOf()方法不会去new对象，而是从缓存中直接获取
-         */
+         *//*
+
         Integer i1 = 100;
         Integer i2 = 100;
         Integer i3 = 200;
@@ -690,3 +711,4 @@ class TestYcApplicationTests {
 
 }
 
+*/

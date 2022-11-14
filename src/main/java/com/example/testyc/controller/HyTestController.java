@@ -1,3 +1,4 @@
+/*
 package com.example.testyc.controller;
 
 import com.alibaba.fastjson.JSON;
@@ -18,20 +19,24 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
+*/
 /**
  * @author zcw
  * @date 2020-01-10
  * @description 会员测试类
- */
+ *//*
+
 @Slf4j
 @TestYcApi
 @RestController
 @RequestMapping("/hy")
 @Api(tags = "会员测试接口")
 public class HyTestController {
-    /**
+    */
+/**
      * 测试结果
-     */
+     *//*
+
     @RequestMapping(value = "testHY", method = RequestMethod.POST)
     @ApiOperation("测试云仓接口")
     @ResponseBody
@@ -73,3 +78,4 @@ public class HyTestController {
     }
 
 }
+*/

@@ -1,3 +1,4 @@
+/*
 package com.example.testyc.controller;
 
 import com.alibaba.fastjson.JSON;
@@ -22,10 +23,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+*/
 /**
  * @author zcw
  * @date 2019-09-24
- */
+ *//*
+
 @Slf4j
 @TestYcApi
 @RestController
@@ -48,9 +51,11 @@ public class YcTestController {
     @Autowired
     private RedisUtil redisUtil;
 
-    /**
+    */
+/**
      * 测试结果
-     */
+     *//*
+
     @RequestMapping(value = "testYC", method = RequestMethod.POST)
     @ApiOperation("测试云仓接口")
     @ResponseBody
@@ -106,7 +111,8 @@ public class YcTestController {
     @RequestMapping(value = "testCache2", method = RequestMethod.POST)
     @ApiOperation("测试缓存2")
     public void testCache2() {
-        /*String cacheName = "myCache";
+        */
+/*String cacheName = "myCache";
         String key = "13337106951";
         String val = "注解缓存测试";
         ehcacheConfig.annotationSave(key, val);
@@ -114,7 +120,8 @@ public class YcTestController {
         log.info("输出缓存:{}", object.toString());
         ehcacheConfig.annotationRemove(key);
         Object object2 = ehcacheConfig.get(cacheName, key);
-        log.info("输出缓存:{}", object2);*/
+        log.info("输出缓存:{}", object2);*//*
+
         String cacheName = "myCache";
         String key = "18989898988";
         String val = "I'm ironMan";
@@ -147,3 +154,4 @@ public class YcTestController {
     }
 
 }
+*/

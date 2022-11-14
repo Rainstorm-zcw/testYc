@@ -7,3 +7,7 @@ spring:
     password: root
     hikari:
     maximum-pool-size: 80
+
+keyId: 1300386381676533138
+secretKey: 6ed4397031ed41929157de34087ba65c
+url: https://api.ginlong.com:13333/

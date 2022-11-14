@@ -49,7 +49,7 @@
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>swagger-bootstrap-ui</artifactId>
-            <version>1.8.2</version>
+            <version>1.9.5</version>
         </dependency>
 
         <dependency>
@@ -75,11 +75,11 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>dubbo</artifactId>
             <version>2.8.4-fixed-2-SNAPSHOT</version>
-        </dependency>
+        </dependency>-->
         <!-- stringUtils类 -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -118,11 +118,11 @@
             <version>1.3.5</version>
         </dependency>
         <!-- oracle -->
-        <dependency>
+        <!--<dependency>
             <groupId>com.oracle</groupId>
             <artifactId>ojdbc14</artifactId>
             <version>10.2.0.4.0</version>
-        </dependency>
+        </dependency>-->
         <!-- mysql -->
         <dependency>
             <groupId>mysql</groupId>
@@ -186,14 +186,33 @@
             <artifactId>snakeyaml</artifactId>
             <version>1.25</version>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>RELEASE</version>
             <scope>compile</scope>
+        </dependency>-->
+
+        <dependency>
+            <groupId>com.squareup.okhttp</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>2.2.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
+    <distributionManagement>
+        <repository>
+            <id>releases</id>
+            <name>zcw的maven私有库-稳定版</name>
+            <url>http://localhost:8081/repository/maven-releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>zcw的maven私有库-快照版</name>
+            <url>http://localhost:8081/repository/maven-snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
     <!--<profiles>
         <profile>
             <id>dev</id>
@@ -210,9 +229,12 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
             </plugin>
             <!-- mysql自動生成 -->
-            <plugin>
+            <!--<plugin>
                 <groupId>org.mybatis.generator</groupId>
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>1.3.2</version>
@@ -226,7 +248,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <!-- generator 工具配置文件的位置 -->
+                    &lt;!&ndash; generator 工具配置文件的位置 &ndash;&gt;
                     <configurationFile>src/main/resources/mybatis-generator/mysqlGeneratorConfig.xml</configurationFile>
                     <verbose>true</verbose>
                     <overwrite>true</overwrite>
@@ -243,7 +265,7 @@
                         <version>1.3.2</version>
                     </dependency>
                 </dependencies>
-            </plugin>
+            </plugin>-->
 
             <!-- 可以使用 @activeProfile@ -->
             <plugin>
@@ -252,6 +274,15 @@
                 <configuration>
                     <delimiters>@</delimiters>
                     <useDefaultDelimiters>false</useDefaultDelimiters>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+                <configuration>
+                    <skip>false</skip>
                 </configuration>
             </plugin>
         </plugins>
@@ -296,6 +327,11 @@
             <id>spring-milestones</id>
             <name>Spring Milestones</name>
             <url>https://repo.spring.io/milestone</url>
+        </repository>
+        <repository>
+            <id>zcw-nexus</id>
+            <name>zcw的私服</name>
+            <url>http://localhost:8081/repository/maven-public/</url>
         </repository>
     </repositories>
     <pluginRepositories>

@@ -1,3 +1,4 @@
+/*
 package com.example.testyc.support.util;
 
 import com.alibaba.dubbo.config.ApplicationConfig;
@@ -15,11 +16,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+*/
 /**
  * @author zcw
  * @date 2019-10-19
  * @apiNote dubbo服务代理
- */
+ *//*
+
 @Slf4j
 public class DubboServiceFactory {
 
@@ -53,7 +56,8 @@ public class DubboServiceFactory {
         return SingletonHolder.INSTANCE;
     }
 
-    /**
+    */
+/**
      * 泛化调用
      *
      * @param serviceId      dubbo服务id
@@ -63,7 +67,8 @@ public class DubboServiceFactory {
      * @param methodName     方法名称
      * @param parameters
      * @return
-     */
+     *//*
+
     public Object genericInvoke(String serviceId, String serviceGroup, String version, String interfaceClass, String methodName, List<Map<String, Object>> parameters) {
 
         ReferenceConfig<GenericService> reference = new ReferenceConfig<>();
@@ -100,3 +105,4 @@ public class DubboServiceFactory {
     }
 
 }
+*/

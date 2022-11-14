@@ -2,10 +2,12 @@ package com.example.testyc;
 
 import com.alibaba.fastjson.JSON;
 import com.example.testyc.persistence.entity.Student;
+import com.example.testyc.support.util.GinLongUtil;
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.lang.reflect.Constructor;
@@ -169,6 +171,13 @@ public class TestStudentConstructor {
         List<String> listB = Lists.newArrayList();
         BeanUtils.copyProperties(list,listB);
         log.info("输出:{}", JSON.toJSONString(listB));
+    }
+
+    @Autowired
+    private GinLongUtil ginLongUtil ;
+    @Test
+    public void testValue(){
+        log.info(ginLongUtil.address);
     }
 
 }
